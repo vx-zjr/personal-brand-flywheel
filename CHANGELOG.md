@@ -2,6 +2,18 @@
 
 本文件记录「个人品牌飞轮」的所有版本变化，格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循语义化版本（见 agent.md §9）。构建脚本会解析本文件，把最近的版本显示在页面的“关于与更新”中。
 
+## [1.1.0] - 2026-10-10
+
+### 新增
+- 公开在线版本：https://vx-zjr.github.io/personal-brand-flywheel/ ，由 GitHub Pages 托管；`.github/workflows/pages.yml` 在每次推送到 `main` 后自动校验、构建并部署。
+- 许可证：内容采用 CC BY 4.0（`LICENSE-CONTENT`），代码采用 MIT（`LICENSE`）；页面页脚与“关于与更新”页显示许可证、源码仓库与在线版本地址。
+- 公开版每节末尾增加“去 GitHub 提建议”，打开一条预填好页面位置的 Issue。
+- 社交分享预览图（og.png）与搜索引擎元信息（canonical、Open Graph、Twitter Card）。
+
+### 变更
+- README 重写：横幅、徽章、截图、内容地图、工具清单、架构图、部署与迭代说明。
+- 构建脚本：复制 `src/assets/` 中的静态资源到 `dist/`，校验 `site.json` 中的仓库地址、在线地址与许可证字段。
+
 ## [1.0.0] - 2026-10-10
 
 ### 新增

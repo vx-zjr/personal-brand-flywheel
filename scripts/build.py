@@ -11,6 +11,7 @@
     dist/index.html     完整 HTML 文档，可直接打开或上传到任意静态托管
     dist/artifact.html  Claude Artifact 版（无 doctype/html/head/body，发布时由平台包裹）
     dist/build-info.json 构建信息：版本、时间、统计、警告
+    dist/<静态资源>      src/assets/ 中的文件原样复制（如社交分享图 og.png）
 
 校验规则与内容模型见 agent.md §5、§7。新增区块类型或工具时，同步更新本文件中的
 BLOCK_SCHEMA / DIAGRAM_KINDS，以及 src/js 中对应的渲染器。
@@ -18,8 +19,10 @@ BLOCK_SCHEMA / DIAGRAM_KINDS，以及 src/js 中对应的渲染器。
 from __future__ import annotations
 
 import datetime as dt
+import html
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -166,6 +169,14 @@ def validate(rep: Report, stale_list: bool) -> dict | None:
         rep.err("site.json", "version 必须是语义化版本号 x.y.z")
     if not parse_date(site.get("updated", "")):
         rep.err("site.json", "updated 必须是 YYYY-MM-DD 日期")
+    for k in ["repo", "online"]:
+        if k in site and not str(site[k]).startswith("https://"):
+            rep.err("site.json", f"{k} 必须是 https:// 开头的完整地址")
+    lic = site.get("license")
+    if lic is not None:
+        for k in ["content", "contentUrl", "code", "codeUrl"]:
+            if not lic.get(k):
+                rep.err("site.json", f"license 缺少 {k}")
 
     chapters: dict[str, dict] = {}
     for cid in site.get("chapters", []):
@@ -507,16 +518,32 @@ def bundle(content: dict, host: str) -> str:
     )
     if host == "artifact":
         return f"<title>{title}</title>\n<style>\n{css}\n</style>\n{body}"
-    desc = site.get("description", "")
+    desc = html.escape(site.get("description", ""), quote=True)
+    online = site.get("online", "")
+    meta = [
+        f'<meta name="description" content="{desc}">',
+        '<meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">',
+        '<meta name="theme-color" content="#0e1217" media="(prefers-color-scheme: dark)">',
+        '<meta property="og:type" content="website">',
+        f'<meta property="og:title" content="{title}">',
+        f'<meta property="og:description" content="{desc}">',
+        '<meta name="twitter:card" content="summary_large_image">',
+    ]
+    if online:
+        meta += [
+            f'<link rel="canonical" href="{online}">',
+            f'<meta property="og:url" content="{online}">',
+        ]
+        if (SRC / "assets" / "og.png").exists():
+            meta.append(f'<meta property="og:image" content="{online}og.png">')
+    meta_html = "\n".join(meta) + "\n"
     return (
         "<!doctype html>\n"
         f'<html lang="{site.get("lang", "zh-CN")}">\n<head>\n'
         '<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
         f"<title>{title}</title>\n"
-        f'<meta name="description" content="{desc}">\n'
-        f'<meta property="og:title" content="{title}">\n'
-        f'<meta property="og:description" content="{desc}">\n'
+        f"{meta_html}"
         f"<style>\n{css}\n</style>\n"
         "</head>\n<body>\n"
         f"{body}"
@@ -547,9 +574,15 @@ def main(argv: list[str]) -> int:
         return 0
     DIST.mkdir(exist_ok=True)
     outputs = {"index.html": bundle(content, "standalone"), "artifact.html": bundle(content, "artifact")}
-    for name, html in outputs.items():
-        (DIST / name).write_text(html, encoding="utf-8")
-        print(f"  → dist/{name}  {len(html.encode('utf-8')) / 1024:.0f} KB")
+    for name, page in outputs.items():
+        (DIST / name).write_text(page, encoding="utf-8")
+        print(f"  → dist/{name}  {len(page.encode('utf-8')) / 1024:.0f} KB")
+    assets = SRC / "assets"
+    if assets.is_dir():
+        for f in sorted(assets.iterdir()):
+            if f.is_file():
+                shutil.copy2(f, DIST / f.name)
+                print(f"  → dist/{f.name}  {f.stat().st_size / 1024:.0f} KB（静态资源）")
     info = {
         "version": content["site"]["version"],
         "contentUpdated": content["site"]["updated"],

@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "contentUpdated": "2026-10-10",
-  "builtAt": "2026-10-10T15:46:56",
+  "builtAt": "2026-10-10T16:05:49",
   "stats": {
     "chapters": 4,
     "sections": 22,
@@ -15,7 +15,7 @@
     "personas": 8,
     "books": 19,
     "glossary": 26,
-    "cjkChars": 23230
+    "cjkChars": 23423
   },
   "warnings": []
 }

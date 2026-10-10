@@ -2,9 +2,17 @@
   "title": "个人品牌飞轮",
   "tagline": "建立 · 维护 · 利用：一套可执行、可度量、可迭代的个人品牌系统",
   "description": "如何建立、维护、利用个人品牌：3 个阶段、18 个主题、12 个交互工具，附角色路线与可导出的品牌方案。",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "updated": "2026-10-10",
   "lang": "zh-CN",
+  "repo": "https://github.com/vx-zjr/personal-brand-flywheel",
+  "online": "https://vx-zjr.github.io/personal-brand-flywheel/",
+  "license": {
+    "content": "CC BY 4.0",
+    "contentUrl": "https://creativecommons.org/licenses/by/4.0/deed.zh-hans",
+    "code": "MIT",
+    "codeUrl": "https://github.com/vx-zjr/personal-brand-flywheel/blob/main/LICENSE"
+  },
   "freshnessDays": 180,
   "volatileDays": 90,
   "chapters": ["overview", "build", "maintain", "leverage"],
@@ -53,9 +61,9 @@
     {
       "type": "steps",
       "items": [
-        { "title": "提出建议", "text": "在 Claude 中查看时，每一节末尾都有“对本节提建议”按钮，也可以直接使用页面右上角的评论功能。" },
+        { "title": "提出建议", "text": "在 Claude 中查看时，每一节末尾都有“对本节提建议”按钮；在公开在线版本中，同一位置的“去 GitHub 提建议”会打开一条预填好页面位置的 Issue。" },
         { "title": "智能体按手册处理", "text": "维护者让 AI 智能体读取项目中的 agent.md，按其中的流程分诊、修改内容、校验并构建。" },
-        { "title": "发布新版本", "text": "更新会发布到同一个链接，版本号与更新日志同步记录在本页下方。" }
+        { "title": "发布新版本", "text": "更新推送到 GitHub 后会自动部署到公开在线版本，Artifact 版发布到同一个链接；版本号与更新日志同步记录在本页下方。" }
       ]
     },
     {

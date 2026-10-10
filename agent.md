@@ -17,7 +17,7 @@ python3 scripts/build.py --strict   # 发布前用：警告也算失败
 python3 -m http.server 8765 --directory dist   # 本地预览 http://localhost:8765
 ```
 
-改内容的标准流程：**改 `content/*.json` → 构建 → 预览 → 更新版本号与 CHANGELOG → 发布到同一个 Artifact 链接 → 在 §15 记一笔**。
+改内容的标准流程：**改 `content/*.json` → 构建 → 预览 → 更新版本号与 CHANGELOG → 提交并推送 GitHub（自动部署公开在线版）→ 发布到同一个 Artifact 链接 → 在 §15 记一笔**。
 
 绝对不要手改 `dist/` 里的文件，它们每次构建都会被覆盖。
 
@@ -37,8 +37,8 @@ python3 -m http.server 8765 --directory dist   # 本地预览 http://localhost:8
 | 全面 | 三阶段 × 6 主题 + 总览 + 8 条角色路线 + 资源与术语 |
 | 可交互 | 12 个工具、11 份可勾选清单、全文搜索、阅读进度、数据导入导出 |
 | 可视化 | 飞轮、四圈交集、中心辐射、内容金字塔、指标漏斗、营销沙漏、价值阶梯；雷达图、趋势图、甘特条 |
-| 可托管 | 零外部依赖的单文件；Artifact 版 + 独立托管版 |
-| 可迭代 | 内容与代码分离、构建校验、语义化版本、CHANGELOG、内容保鲜期、评论反馈 → 本手册流程 |
+| 可托管 | 零外部依赖的单文件；公开在线版（GitHub Pages，推送即自动部署）+ Artifact 版 + 任意静态托管 |
+| 可迭代 | 内容与代码分离、构建校验、语义化版本、CHANGELOG、内容保鲜期、评论与 GitHub Issue 反馈 → 本手册流程 |
 
 **不做的事**：不替某个真实的人做“人设包装”；不提供法律、税务、投资建议（只做一般提示并注明）；不承诺涨粉数字；不编造数据、案例或引用；不加第三方统计与追踪。
 
@@ -50,9 +50,11 @@ python3 -m http.server 8765 --directory dist   # 本地预览 http://localhost:8
 
 | 项目 | 值 |
 |---|---|
-| 版本 | 1.0.0（2026-10-10） |
+| 版本 | 1.1.0（2026-10-10） |
 | 托管 | Claude Artifact：https://claude.ai/artifact/UbqsbHxqpcMHA5SuEhywqs （私有，分享由所有者在页面分享菜单中设置） |
+| 公开在线版 | https://vx-zjr.github.io/personal-brand-flywheel/ （GitHub Pages，从 `gh-pages` 分支发布，由工作流自动更新） |
 | 源码仓库 | GitHub（公开）：https://github.com/vx-zjr/personal-brand-flywheel ，分支 `main`，版本标签 `vX.Y.Z` |
+| 许可证 | 内容 CC BY 4.0（`LICENSE-CONTENT`），代码 MIT（`LICENSE`），版权人 vx-zjr |
 | 内容规模 | 4 章 22 节 · 183 个区块 · 11 份清单 · 7 张概念图 · 12 个工具 · 22 个平台 · 8 条角色路线 · 19 本书 · 26 个术语 |
 | 页面能力（在 Claude 中打开时） | `db`、`user`（每位用户的私有工作簿）、`sample`（AI 功能）、`downloads`（保存文件）、`comments`（仅打开评论框） |
 
@@ -61,6 +63,8 @@ python3 -m http.server 8765 --directory dist   # 本地预览 http://localhost:8
 | 日期 | 版本 | 地址 | 说明 |
 |---|---|---|---|
 | 2026-10-10 | 1.0.0 | https://claude.ai/artifact/UbqsbHxqpcMHA5SuEhywqs | 首次发布（Artifact 版本 1）；已验证私有存储路径 data/users/<id>/ 可读写 |
+| 2026-10-10 | 1.0.0 | https://github.com/vx-zjr/personal-brand-flywheel | 推送到 GitHub 公开仓库，标签 v1.0.0 |
+| 2026-10-10 | 1.1.0 | https://vx-zjr.github.io/personal-brand-flywheel/ | 公开在线版上线；许可证；README 重写；Artifact 同步更新 |
 
 ---
 
@@ -71,8 +75,10 @@ personal_brand/
 ├── agent.md              ★ 本手册（唯一规范来源）
 ├── AGENTS.md -> agent.md  符号链接，供遵循 AGENTS.md 约定的工具读取
 ├── CLAUDE.md             仅一行 @agent.md，供 Claude Code 自动加载
-├── README.md             给人看的简介
+├── README.md             给人看的项目主页（横幅、徽章、截图、内容地图、工具表）
 ├── CHANGELOG.md          版本记录（构建时解析并显示在页面“关于与更新”）
+├── LICENSE               MIT（代码）
+├── LICENSE-CONTENT       CC BY 4.0（内容），开头写明适用范围与署名方式
 ├── content/              ★ 内容的唯一来源（JSON）
 │   ├── site.json         站点元信息：标题、版本、导航、首页文案、关于页区块、免责声明
 │   ├── overview.json     第 0 章 总览（4 节）
@@ -84,6 +90,7 @@ personal_brand/
 │   │                     日历示例、90 天任务、指标字段、变现参数、危机决策树、AI 提示词
 │   └── resources.json    书籍、文章、术语、常见问题
 ├── src/
+│   ├── assets/og.png     社交分享预览图（构建时复制到 dist/，在线版 og:image 使用）
 │   ├── shell.html        页面外壳（顶栏、导航栏、主区域）
 │   ├── css/styles.css    设计令牌与全部样式
 │   └── js/               按文件名顺序拼接
@@ -96,11 +103,17 @@ personal_brand/
 │       ├── 36-search.js      全文搜索
 │       ├── 40–51-tool-*.js   12 个工具
 │       └── 90-main.js        启动
-├── scripts/build.py      校验 + 打包（仅 Python 标准库）
+├── scripts/
+│   ├── build.py          校验 + 打包（仅 Python 标准库）
+│   ├── make_assets.sh    用无头 Chrome 重新生成横幅、分享图与 README 截图
+│   └── brand_card.html   横幅与分享图的渲染模板
+├── docs/assets/          README 用的横幅（浅色 / 深色）与 screenshots/ 截图
+├── .github/workflows/pages.yml  推送到 main 后：校验 → 构建 → 发布到 gh-pages
 ├── dist/                 构建产物（勿手改）
 │   ├── index.html        独立托管版（完整 HTML 文档）
 │   ├── artifact.html     Artifact 版（无 doctype/head/body，由平台包裹）
-│   └── build-info.json   版本、构建时间、统计、警告
+│   ├── build-info.json   版本、构建时间、统计、警告
+│   └── og.png            由 src/assets/ 复制
 └── .claude/launch.json   本地预览服务器配置（端口 8765）
 ```
 
@@ -299,17 +312,20 @@ AI 提示词全部在 `tools.json → ai`，用 `{占位符}` 注入数据：`ca
 4. 更新 `site.json` 的 `updated`；MINOR 版本；CHANGELOG 写“刷新”。
 
 ### R8 处理用户反馈
-反馈来源：Artifact 评论（读者点“对本节提建议”会把评论锚定到对应小节）、用户在对话中直接提出。
-1. 用 `ArtifactComments` 读取该 Artifact 的评论线程（评论的锚点会指向具体小节）。
+反馈来源：Artifact 评论（读者点“对本节提建议”会把评论锚定到对应小节）、GitHub Issue（公开在线版每节末尾的“去 GitHub 提建议”会预填页面位置，标题以“[建议]”开头）、用户在对话中直接提出。
+1. 用 `ArtifactComments` 读取 Artifact 的评论线程；GitHub Issue 在本机网络下无法用 `gh` 读取，可抓取 https://github.com/vx-zjr/personal-brand-flywheel/issues 网页，或请用户转述。
 2. 分诊：事实错误（最高优先）→ 体验问题 / Bug → 内容补充 → 新功能。
 3. 小改直接处理；大改先在 §14 路线图登记，再和用户确认。
-4. 处理后在评论线程回复处理结果与版本号，并在 §15 记录。
+4. 处理后在评论线程回复处理结果与版本号（Issue 由用户在网页上回复或关闭），并在 §15 记录。
 
 ### R9 发布、回滚
 见 §8。回滚时用 Artifact 的历史版本，或用 git 检出旧版本重新构建发布；同时在 CHANGELOG 记录回滚原因。
 
 ### R10 翻译或多语言（规划中）
 建议做法：复制 `content/` 为 `content/en/`，`build.py` 增加 `--lang` 参数，分别输出 `dist/en/index.html`；界面文字目前写在 JS 中，需要先抽成 `site.json → ui` 字典。动手前先在 §14 写方案。
+
+### R11 更新 README 截图与分享图
+界面或统计数字明显变化后：`python3 scripts/build.py` → 启动本地预览 → `./scripts/make_assets.sh`（读取 `dist/build-info.json` 的统计数字，重新生成 `docs/assets/` 横幅、截图和 `src/assets/og.png`）→ 再构建一次，让 `dist/og.png` 同步。用 Read 工具逐张检查截图不是空白；无头模式下带小节锚点的路由会截成空白，只用不滚动的路由。
 
 ---
 
@@ -342,7 +358,7 @@ AI 提示词全部在 `tools.json → ai`，用 `{占位符}` 注入数据：`ca
 
 ## 8. 发布与托管
 
-### 8.1 Claude Artifact（主托管）
+### 8.1 Claude Artifact
 - 发布文件：`dist/artifact.html`；固定地址：https://claude.ai/artifact/UbqsbHxqpcMHA5SuEhywqs 。
 - **更新时必须发布到同一个链接**（§2 发布记录里的地址）：在同一会话中用同一路径重新发布；在新会话中先用 Artifact 工具 `read` 该链接，再带 `url` 发布。
 - 首次发布时声明的能力（之后重新发布时省略 `capabilities` 即沿用）：
@@ -354,10 +370,12 @@ AI 提示词全部在 `tools.json → ai`，用 `{占位符}` 注入数据：`ca
 - Artifact 默认私有；是否分享由用户在页面右上角的分享菜单中决定。
 - 页面打开着的读者会在下一个空闲时刻自动收到新版本。
 
-### 8.2 独立托管（备选）
-`dist/index.html` 是完整的单文件，直接上传即可：GitHub Pages、Vercel、Netlify、Cloudflare Pages、任意对象存储或服务器。独立托管版没有 AI、云端同步和评论功能，其余全部可用，数据保存在读者浏览器中。对外发布到公开站点属于公开行为，必须先得到用户明确同意。
-
-GitHub Pages 只能发布分支根目录或 `docs/`：如需启用，要么加一个把 `dist/` 部署到 Pages 的 GitHub Actions 工作流，要么把构建输出目录改为 `docs/`（同时更新本手册与 `build.py`）。
+### 8.2 公开在线版（GitHub Pages，自动部署）
+- 地址：https://vx-zjr.github.io/personal-brand-flywheel/ ，深链接同样可用（如 `#tools.audit`）。
+- 机制：推送到 `main` 触发 `.github/workflows/pages.yml`：运行 `python3 scripts/build.py`（有错误就停止部署，警告不阻断）→ 把 `dist/index.html`、`dist/og.png`、`dist/build-info.json` 和 `.nojekyll` 强制推送到 `gh-pages` 分支 → GitHub Pages 从 `gh-pages` 根目录发布，通常一两分钟生效。
+- 不要手动改 `gh-pages` 分支，它每次部署都会被整体覆盖。
+- 验证：`curl -s https://vx-zjr.github.io/personal-brand-flywheel/build-info.json` 查看线上版本号；部署失败时在仓库 Actions 页面查看日志。若 Pages 被关闭，请用户在 Settings → Pages 把来源设为 `gh-pages` 分支的根目录。
+- 公开版没有 AI、云端同步和评论功能（这些依赖 Claude 运行时），其余全部可用；反馈入口换成 GitHub Issue 链接。
 
 ### 8.3 GitHub 仓库与版本控制
 - 仓库：https://github.com/vx-zjr/personal-brand-flywheel （公开）。`dist/` 纳入版本控制，便于直接托管。
@@ -365,6 +383,9 @@ GitHub Pages 只能发布分支根目录或 `docs/`：如需启用，要么加�
 - 提交作者用 GitHub 的 noreply 邮箱（仓库内 `git config user.email` 已设置），不要把个人邮箱写进提交记录。
 - 推送走 SSH（`git@github.com:vx-zjr/personal-brand-flywheel.git`，密钥 `~/.ssh/id_ed25519`）。在当前这台机器的网络下 `api.github.com` 连不通，`gh` 命令行不可用；github.com 网页与 SSH 正常。需要建仓库、改仓库设置等 API 操作时，请用户在网页上完成。
 - 公开仓库里不要提交：密钥、令牌、读者导出的个人数据（`personal-brand-backup-*.json` 已在 `.gitignore` 中）。
+
+### 8.4 其他静态托管
+`dist/index.html` 是完整的单文件，可以直接上传到 Vercel、Netlify、Cloudflare Pages、任意对象存储或服务器。新增任何公开托管都属于公开行为，必须先得到用户明确同意。
 
 ---
 
@@ -375,7 +396,7 @@ GitHub Pages 只能发布分支根目录或 `docs/`：如需启用，要么加�
 - **MINOR**：新增小节、工具、区块类型、角色路线、季度内容刷新。
 - **PATCH**：错别字、措辞、事实小修正、样式与 Bug 修复。
 
-每次发布同时更新：`content/site.json` 的 `version` 与 `updated`、`CHANGELOG.md`（新增条目放最上面，分组用“新增 / 变更 / 修复 / 刷新 / 移除”）、本手册 §2 与 §15；然后按 §8.3 提交、打标签并推送到 GitHub。
+每次发布同时更新：`content/site.json` 的 `version` 与 `updated`、`CHANGELOG.md`（新增条目放最上面，分组用“新增 / 变更 / 修复 / 刷新 / 移除”）、本手册 §2 与 §15；然后按 §8.3 提交、打标签并推送到 GitHub（公开在线版随之自动更新），再把 `dist/artifact.html` 发布到同一个 Artifact 链接。界面变化明显时按 R11 更新 README 截图。
 
 ### 9.2 迭代循环
 
@@ -403,6 +424,7 @@ GitHub Pages 只能发布分支根目录或 `docs/`：如需启用，要么加�
 - 归属存疑的名言标注“常被认为出自……（出处存疑）”。
 - 法规写明名称与生效日期，并注明“一般性提示，不构成法律意见”。当前引用：《互联网广告管理办法》（2023-05-01 施行）、《网络暴力信息治理规定》（2024-08-01 施行）、《人工智能生成合成内容标识办法》（2025-09-01 施行）、欧盟《人工智能法》第 50 条透明度义务（2026-08-02 起适用，部分既有系统的机器可读标记义务有过渡期）、美国 FTC《背书指南》与 2024 年消费者评价规则、《个人信息保护法》。
 - 不用真实的个人做正面或负面案例；示例人物用虚构人物并标注“虚构”。
+- 许可证：内容以 CC BY 4.0 发布，新增内容必须是原创或与 CC BY 4.0 兼容的材料；不要整段搬运受版权保护的文字，引用保持简短并注明出处。代码以 MIT 发布。
 - 平台信息保持定性描述（“女性用户占比较高”而不是具体百分比），避免会快速过时的数字。
 
 **实用性**
@@ -481,6 +503,7 @@ GitHub Pages 只能发布分支根目录或 `docs/`：如需启用，要么加�
 
 - 2026-10-10 · 1.0.0 · Claude（Opus 5.5）· 从零搭建项目：四章 22 节内容、12 个工具、8 条角色路线、资源页；构建与校验脚本；Artifact 版与独立托管版。决定：内容 JSON 化、零依赖单文件、纯锚点路由、本地 + 私有云端同步、示例数据优先。法规与 AI 标识信息已于当日联网核实。
 - 2026-10-10 · 1.0.0 · Claude（Opus 5.5）· 初始化 git 仓库并推送到 GitHub 公开仓库 vx-zjr/personal-brand-flywheel，打标签 v1.0.0。发现本机网络下 api.github.com 不通（gh 登录卡在最后一步），改用 SSH 推送；仓库由用户在网页上创建。
+- 2026-10-10 · 1.1.0 · Claude（Opus 5.5）· 加入许可证（内容 CC BY 4.0 + 代码 MIT）；页脚与关于页显示许可证、源码与在线版本；公开版每节加“去 GitHub 提建议”；新增 GitHub Pages 自动部署工作流（gh-pages 分支）；README 重写（横幅、徽章、截图、内容地图、工具表、架构图）；新增 `scripts/make_assets.sh` 与 `scripts/brand_card.html`；构建加入 og:image、canonical 与静态资源复制。决定：Pages 用 gh-pages 分支而不是官方 Pages Actions，因为本机无法调用 API 修改 Pages 设置，而推送 gh-pages 分支可自动启用。
 
 ---
 
@@ -501,6 +524,8 @@ GitHub Pages 只能发布分支根目录或 `docs/`：如需启用，要么加�
 - 把内容写进 JS（内容属于 `content/`），或把界面逻辑写进 JSON。
 - 未经同意把页面发布到公开网站（含启用 GitHub Pages），或修改 Artifact 的分享设置。
 - 在公开仓库里提交密钥、令牌或任何读者的个人数据。
+- 删除或改动许可证文件、页面上的许可证与署名信息。
+- 手动修改 `gh-pages` 分支（它由工作流生成）。
 
 ---
 

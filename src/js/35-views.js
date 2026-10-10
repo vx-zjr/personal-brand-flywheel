@@ -178,7 +178,9 @@
     });
     const commentBtn = h("button", { class: "btn sm ghost", type: "button", "data-cap": "comments", hidden: true }, PB.icon("message", "sm"), "对本节提建议");
     commentBtn.addEventListener("click", () => openComposer(el));
-    el.append(h("footer", { class: "section-foot" }, readBtn, commentBtn, h("span", { class: "muted", text: "内容复审于 " + (sec.reviewed || ch.reviewed) })));
+    const issue = !PB.inClaude ? PB.issueUrl(route, ch.title + " › " + sec.title) : null;
+    const issueLink = issue ? h("a", { class: "btn sm ghost", href: issue, target: "_blank", rel: "noopener noreferrer" }, PB.icon("message", "sm"), "去 GitHub 提建议") : null;
+    el.append(h("footer", { class: "section-foot" }, readBtn, commentBtn, issueLink, h("span", { class: "muted", text: "内容复审于 " + (sec.reviewed || ch.reviewed) })));
     return el;
   }
   async function openComposer(el) {
@@ -324,7 +326,9 @@
       h("div", { class: "changelog" }, (C.changelog || []).map((v) => h("article", { class: "changelog-item" },
         h("h4", {}, "v" + v.version, h("span", { text: v.date })),
         v.groups.map((g) => [g.title ? h("h5", { text: g.title }) : null, h("ul", {}, g.items.map((t) => h("li", { html: PB.md(t) })))]))))));
-    const env = PB.inClaude ? "Claude Artifact（私有托管，可分享）" : "独立托管 / 本地文件";
+    const env = PB.inClaude ? "Claude Artifact（私有托管，可分享）" : "公开在线版 / 独立托管";
+    const lic = site.license || {};
+    const linkCell = (href, text) => h("td", {}, h("a", { href, target: "_blank", rel: "noopener noreferrer", text: text || href }));
     view.append(h("section", { class: "section", id: "s-about-host", "data-route": "about.host" },
       h("header", { class: "section-head" }, h("h2", { class: "section-title", text: "托管与运行环境" })),
       h("div", { class: "section-body" },
@@ -332,8 +336,11 @@
           h("tr", {}, h("td", { text: "当前环境" }), h("td", { text: env })),
           h("tr", {}, h("td", { text: "数据存储" }), h("td", { text: PB.store.status.mode === "cloud" ? "本浏览器 + Claude 账户私有存储" : "本浏览器" })),
           h("tr", {}, h("td", { text: "AI 能力" }), h("td", { text: PB.cap.sample ? "可用（调用时会请求你的授权，消耗你的 Claude 用量）" : "不可用（仅在 Claude 中打开时提供）" })),
-          h("tr", {}, h("td", { text: "内容规模" }), h("td", { text: PB.stats().topics + " 个主题 · " + PB.stats().checklists + " 份清单 · " + C.tools.catalog.length + " 个工具" }))))),
-        h("p", { class: "b-p", html: PB.md("页面是一个零外部依赖的单文件，可以发布为 Claude Artifact，也可以直接上传到 GitHub Pages、Vercel、Netlify、Cloudflare Pages 或任何静态托管服务。") }),
+          h("tr", {}, h("td", { text: "内容规模" }), h("td", { text: PB.stats().topics + " 个主题 · " + PB.stats().checklists + " 份清单 · " + C.tools.catalog.length + " 个工具" })),
+          site.online ? h("tr", {}, h("td", { text: "公开在线版" }), linkCell(site.online)) : null,
+          site.repo ? h("tr", {}, h("td", { text: "源码仓库" }), linkCell(site.repo)) : null,
+          lic.content ? h("tr", {}, h("td", { text: "许可证" }), h("td", {}, "内容采用 ", h("a", { href: lic.contentUrl, target: "_blank", rel: "noopener noreferrer", text: lic.content }), "，代码采用 ", h("a", { href: lic.codeUrl, target: "_blank", rel: "noopener noreferrer", text: lic.code }), "。转载或改编请注明出处并附上源码链接。")) : null))),
+        h("p", { class: "b-p", html: PB.md("页面是一个零外部依赖的单文件：公开在线版由 GitHub Pages 托管，每次推送到 GitHub 后自动更新；也可以发布为 Claude Artifact，或上传到 Vercel、Netlify、Cloudflare Pages 等任何静态托管服务。") }),
         h("aside", { class: "b-callout tone-warn" }, h("span", { class: "callout-label" }, PB.icon("warn", "sm"), "免责声明"), h("div", { class: "callout-text", text: site.disclaimer })))));
     return view;
   }
@@ -391,13 +398,25 @@
   };
 
   function siteFoot() {
-    const site = PB.content.site;
+    const site = PB.content.site, lic = site.license || {};
+    const ext = (href, text) => h("a", { href, target: "_blank", rel: "noopener noreferrer", text });
     return h("footer", { class: "site-foot" },
       h("span", { text: site.title + " v" + site.version }),
       h("span", { text: "内容更新于 " + site.updated }),
       h("a", { href: "#about", text: "更新日志与托管说明" }),
-      h("a", { href: "#plan", text: "备份与导出数据" }));
+      h("a", { href: "#plan", text: "备份与导出数据" }),
+      lic.content ? h("span", {}, "内容 ", ext(lic.contentUrl, lic.content), " · 代码 ", ext(lic.codeUrl, lic.code)) : null,
+      site.repo ? ext(site.repo, "GitHub 源码") : null,
+      site.online && PB.inClaude ? ext(site.online, "公开在线版") : null);
   }
+  // 公开版（不在 Claude 中）用 GitHub Issue 收集反馈，标题与正文预填页面位置
+  PB.issueUrl = function issueUrl(route, title) {
+    const site = PB.content.site;
+    if (!site.repo) return null;
+    const t = "[建议] " + (title || route);
+    const body = "页面位置：" + title + "（#" + route + "）\n版本：v" + site.version + "\n\n我的建议：\n";
+    return site.repo + "/issues/new?title=" + encodeURIComponent(t) + "&body=" + encodeURIComponent(body);
+  };
 
   /* ---------- 当前小节高亮 ---------- */
   // 取“顶部已越过阅读线”的最后一个小节作为当前小节
