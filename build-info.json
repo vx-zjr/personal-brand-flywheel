@@ -1,0 +1,21 @@
+{
+  "version": "1.1.0",
+  "contentUpdated": "2026-10-10",
+  "builtAt": "2026-10-10T08:07:24",
+  "stats": {
+    "chapters": 4,
+    "sections": 22,
+    "blocks": 183,
+    "checklists": 11,
+    "checklistItems": 68,
+    "diagrams": 7,
+    "embeddedTools": 9,
+    "tools": 12,
+    "platforms": 22,
+    "personas": 8,
+    "books": 19,
+    "glossary": 26,
+    "cjkChars": 23423
+  },
+  "warnings": []
+}
