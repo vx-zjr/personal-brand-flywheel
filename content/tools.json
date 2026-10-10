@@ -1,0 +1,362 @@
+{
+  "catalog": [
+    { "id": "audit", "name": "品牌体检", "icon": "radar", "stage": "neutral", "desc": "7 个维度、21 道题，生成品牌雷达图与改进建议，可保存历史并对比。", "home": "overview.howto" },
+    { "id": "archetype", "name": "品牌原型", "icon": "persona", "stage": "build", "desc": "从 12 种品牌原型中选出主、辅原型，确定语调与内容风格。", "home": "build.discover" },
+    { "id": "canvas", "name": "定位画布", "icon": "target", "stage": "build", "desc": "填写 11 个字段，自动生成定位陈述、三种简介和电梯演讲。", "home": "build.position" },
+    { "id": "niche", "name": "领域评估", "icon": "bars", "stage": "build", "desc": "按热爱、擅长、需求、变现、竞争、持久性为候选领域打分排序。", "home": "build.position" },
+    { "id": "platform", "name": "平台选择器", "icon": "layers", "stage": "build", "desc": "回答 6 个问题，从 22 个平台中匹配主阵地与分发阵地。", "home": "build.platform" },
+    { "id": "calendar", "name": "内容日历", "icon": "calendar", "stage": "build", "desc": "设定内容支柱与发布节奏，生成 4 周日历，并管理选题池。", "home": "build.content" },
+    { "id": "roadmap", "name": "90 天计划", "icon": "flag", "stage": "build", "desc": "四个阶段、21 项任务的冷启动路线图，自动定位当前周次。", "home": "build.launch" },
+    { "id": "metrics", "name": "指标仪表盘", "icon": "chart", "stage": "maintain", "desc": "按月记录关键指标，查看趋势、环比与北极星指标。", "home": "maintain.measure" },
+    { "id": "crisis", "name": "危机应对", "icon": "shield", "stage": "maintain", "desc": "回答几个问题，得到应对步骤与声明模板。", "home": "maintain.reputation" },
+    { "id": "money", "name": "变现计算器", "icon": "coins", "stage": "leverage", "desc": "铁杆粉丝测算与价值阶梯规划，估算月收入。", "home": "leverage.monetize" },
+    { "id": "advisor", "name": "品牌顾问", "icon": "chat", "stage": "neutral", "desc": "结合你的定位画布与体检结果，向 Claude 提问（在 Claude 中打开时可用）。", "home": "tools" },
+    { "id": "plan", "name": "我的方案", "icon": "file", "stage": "neutral", "desc": "把所有工具的结果汇总成一份可导出的个人品牌战略书。", "home": "plan" }
+  ],
+
+  "audit": {
+    "scale": ["完全不符合", "较不符合", "一般", "较符合", "完全符合"],
+    "dimensions": [
+      {
+        "id": "clarity", "name": "清晰度", "en": "Clarity",
+        "desc": "别人能否一句话说清你是谁、做什么",
+        "link": "build.position",
+        "questions": [
+          "我能用一句话（30 字以内）说清我帮助谁、解决什么问题。",
+          "认识我的人向别人介绍我时，说法基本一致。",
+          "我清楚目标受众是谁，能描述他们的需求与痛点。"
+        ],
+        "tips": ["用定位画布写出一句话定位", "做一次他人反馈调查，看看别人如何描述你", "把目标受众具体到一个真实的人"]
+      },
+      {
+        "id": "distinct", "name": "差异度", "en": "Distinctiveness",
+        "desc": "与同类相比，你的独特之处",
+        "link": "build.position",
+        "questions": [
+          "我能说出自己与同领域其他人的明确区别。",
+          "我有独特的经历、方法或技能组合，并且在内容中体现了出来。",
+          "我的内容有可辨识的风格或观点，而不是泛泛而谈。"
+        ],
+        "tips": ["盘点你的技能叠加组合", "给你的方法论起一个名字", "在内容中多加入亲身经历和独立观点"]
+      },
+      {
+        "id": "consistency", "name": "一致性", "en": "Consistency",
+        "desc": "形象、信息与节奏是否稳定",
+        "link": "maintain.consistency",
+        "questions": [
+          "我在所有平台上使用统一的名字、头像和简介。",
+          "我能按固定节奏持续输出（过去 3 个月没有长期断更）。",
+          "我的内容始终围绕核心定位，很少跑题。"
+        ],
+        "tips": ["完成账号装修清单", "定一个最小可持续节奏，写进日历", "储备 2 周存稿"]
+      },
+      {
+        "id": "credibility", "name": "可信度", "en": "Credibility",
+        "desc": "作品、案例、评价与背书",
+        "link": "build.identity",
+        "questions": [
+          "我有能公开展示的作品、案例或成果。",
+          "我有来自他人的评价、推荐或第三方背书。",
+          "我分享的内容准确可靠，有经验或数据支撑。"
+        ],
+        "tips": ["整理 3–5 个代表作或案例", "每次合作后主动收集评价", "发布一篇基于亲身实践的深度内容"]
+      },
+      {
+        "id": "visibility", "name": "可见度", "en": "Visibility",
+        "desc": "在目标人群中被看见、被搜到",
+        "link": "maintain.reputation",
+        "questions": [
+          "在搜索引擎或 AI 助手中搜索我的名字，能找到准确的信息。",
+          "我在目标受众聚集的平台上有稳定的曝光。",
+          "我曾通过演讲、媒体、播客或合作获得外部曝光。"
+        ],
+        "tips": ["做一次数字足迹自查", "用平台选择器重新确认主阵地", "每季度争取一次外部露出"]
+      },
+      {
+        "id": "connection", "name": "连接度", "en": "Connection",
+        "desc": "互动、关系网络与自有阵地",
+        "link": "maintain.community",
+        "questions": [
+          "我会认真回复评论与私信，与受众保持互动。",
+          "我有一个可以互相支持、合作的同行网络。",
+          "我有自有阵地（邮件列表、社群等），可以直接联系到受众。"
+        ],
+        "tips": ["发布后 1 小时内回复评论", "每周主动联系 1–2 位同行", "建立邮件订阅或社群"]
+      },
+      {
+        "id": "conversion", "name": "转化度", "en": "Conversion",
+        "desc": "品牌带来的实际机会与收入",
+        "link": "leverage.monetize",
+        "questions": [
+          "我的品牌曾为我带来工作、客户、合作或收入。",
+          "别人知道如何与我合作或购买我的服务。",
+          "我有清晰的价值阶梯或机会漏斗，而不是等机会偶然出现。"
+        ],
+        "tips": ["在所有主页加上清晰的合作入口", "设计一个引流磁铁", "用变现计算器规划价值阶梯"]
+      }
+    ],
+    "levels": [
+      { "min": 0, "name": "隐形期", "text": "你可能很有能力，但还没有被对的人看见。先从定位和最小可行品牌开始。" },
+      { "min": 35, "name": "萌芽期", "text": "品牌已经起步，但还不稳定。重点补齐短板，建立一致性系统。" },
+      { "min": 55, "name": "成长期", "text": "品牌初具辨识度。是时候放大优势、建设自有阵地、设计转化路径了。" },
+      { "min": 75, "name": "成熟期", "text": "你已经拥有稳定的品牌资产。关注影响力升级与资产化。" },
+      { "min": 90, "name": "影响力期", "text": "你是领域内会被想起的人。守护好声誉，并把品牌系统化、资产化。" }
+    ],
+    "example": { "clarity": 3.7, "distinct": 2.7, "consistency": 3.3, "credibility": 3.7, "visibility": 2.3, "connection": 3.0, "conversion": 2.0 }
+  },
+
+  "archetypes": [
+    { "id": "sage", "name": "智者", "en": "Sage", "desire": "追求真理与理解", "voice": ["理性", "深刻", "严谨"], "content": "深度分析、研究解读、思考框架", "watch": "说教、高冷，让人有距离感" },
+    { "id": "explorer", "name": "探险家", "en": "Explorer", "desire": "自由与发现", "voice": ["好奇", "独立", "真实"], "content": "实验记录、旅程、跨界尝试", "watch": "主题过于发散，缺乏聚焦" },
+    { "id": "hero", "name": "英雄", "en": "Hero", "desire": "证明价值、战胜挑战", "voice": ["坚定", "激励", "行动导向"], "content": "挑战、突破、成长故事", "watch": "傲慢，或者过度煽动情绪" },
+    { "id": "creator", "name": "创造者", "en": "Creator", "desire": "创造有价值的新事物", "voice": ["富有想象力", "精致", "原创"], "content": "作品、创作过程、灵感来源", "watch": "完美主义导致产出过慢" },
+    { "id": "caregiver", "name": "照顾者", "en": "Caregiver", "desire": "关怀与帮助他人", "voice": ["温暖", "耐心", "可靠"], "content": "答疑、陪伴、实用指南", "watch": "过度付出，边界模糊" },
+    { "id": "ruler", "name": "统治者", "en": "Ruler", "desire": "秩序、掌控与责任", "voice": ["权威", "稳重", "高标准"], "content": "管理方法、战略判断、行业标准", "watch": "显得强势、难以亲近" },
+    { "id": "magician", "name": "魔术师", "en": "Magician", "desire": "带来转变、实现愿景", "voice": ["有远见", "启发性", "笃定"], "content": "前后对比、方法论、未来趋势", "watch": "夸大效果或承诺" },
+    { "id": "outlaw", "name": "反叛者", "en": "Outlaw", "desire": "打破规则、颠覆现状", "voice": ["犀利", "反常识", "直接"], "content": "批判性观点、反主流洞察", "watch": "为了反对而反对" },
+    { "id": "everyman", "name": "普通人", "en": "Everyman", "desire": "归属与真实", "voice": ["亲切", "朴实", "接地气"], "content": "日常经验、真实记录", "watch": "缺乏记忆点" },
+    { "id": "lover", "name": "情人", "en": "Lover", "desire": "亲密与美好的体验", "voice": ["感性", "细腻", "有温度"], "content": "审美、情感、生活方式", "watch": "流于表面" },
+    { "id": "jester", "name": "弄臣", "en": "Jester", "desire": "快乐与当下", "voice": ["幽默", "轻松", "机智"], "content": "段子、反差、趣味科普", "watch": "不被认真对待" },
+    { "id": "innocent", "name": "天真者", "en": "Innocent", "desire": "简单、乐观与安全感", "voice": ["积极", "纯粹", "真诚"], "content": "正能量、简单方法、美好故事", "watch": "显得幼稚" }
+  ],
+
+  "canvas": {
+    "exampleName": "林舟（虚构示例）",
+    "fields": [
+      { "id": "name", "label": "名字 / 称呼", "example": "林舟" },
+      { "id": "identity", "label": "身份 / 头衔", "example": "数据分析师" },
+      { "id": "audience", "label": "目标人群", "example": "想转行数据分析的职场人" },
+      { "id": "problem", "label": "他们的核心痛点", "example": "不知道从哪里学起，学了也用不上" },
+      { "id": "outcome", "label": "你帮他们实现的结果", "example": "3 个月上手能用在工作中的数据分析" },
+      { "id": "method", "label": "你的独特方法（用动词开头）", "example": "从真实业务案例出发，倒推需要学的技能" },
+      { "id": "proof", "label": "信任状 / 证据", "example": "8 年互联网数据分析经验，带过 30 多位新人" },
+      { "id": "alternative", "label": "他们目前的替代方案", "example": "啃教材、刷零散的网课" },
+      { "id": "keywords", "label": "品牌关键词（3 个）", "example": "实战、清晰、陪伴" },
+      { "id": "mission", "label": "你的信念 / 使命", "example": "让数据能力成为每个职场人的基本功" },
+      { "id": "cta", "label": "希望对方采取的行动", "example": "订阅我的每周案例拆解" }
+    ],
+    "outputs": [
+      { "id": "classic", "group": "定位陈述", "title": "经典式", "limit": 0, "template": "我帮助{audience}{outcome}，方法是{method}。" },
+      { "id": "contrast", "group": "定位陈述", "title": "对比式", "limit": 0, "template": "不同于{alternative}，我{method}，帮助{audience}{outcome}。" },
+      { "id": "identity", "group": "定位陈述", "title": "身份式", "limit": 0, "template": "{identity}｜专注帮助{audience}｜{proof}" },
+      { "id": "moore", "group": "定位陈述", "title": "Geoffrey Moore 式", "limit": 0, "template": "对于{audience}，他们的困扰是{problem}。我是{identity}，能帮助他们{outcome}。不同于{alternative}，我{method}。" },
+      { "id": "bio1", "group": "简介", "title": "一句话简介", "limit": 40, "template": "{identity}｜帮{audience}{outcome}" },
+      { "id": "bio2", "group": "简介", "title": "短版简介", "limit": 100, "template": "我是{name}，{identity}。我专注于帮助{audience}{outcome}。{proof}。欢迎{cta}。" },
+      { "id": "bio3", "group": "简介", "title": "长版简介（第三人称）", "limit": 500, "template": "{name}是一名{identity}，相信{mission}。{name}专注于帮助{audience}解决“{problem}”的难题：{method}，帮助他们{outcome}。{proof}。{name}的关键词是：{keywords}。欢迎{cta}。" },
+      { "id": "pitch", "group": "表达", "title": "30 秒电梯演讲", "limit": 0, "template": "很多{audience}都有同一个困扰：{problem}。我是{name}，一名{identity}。我{method}，帮助他们{outcome}。{proof}。如果你或身边的人也有这方面的需要，欢迎{cta}。" }
+    ]
+  },
+
+  "niche": {
+    "criteria": [
+      { "id": "passion", "name": "热爱", "weight": 1.0, "hint": "不计回报也愿意谈论它三年以上" },
+      { "id": "skill", "name": "擅长", "weight": 1.0, "hint": "你比大多数人懂，或有独特经验" },
+      { "id": "demand", "name": "需求", "weight": 1.2, "hint": "有明确的人群在搜索、讨论、付费" },
+      { "id": "money", "name": "变现", "weight": 0.8, "hint": "存在清晰的变现或机会路径" },
+      { "id": "room", "name": "竞争缓和", "weight": 0.6, "hint": "头部尚未垄断，或你有差异化切口" },
+      { "id": "durable", "name": "持久性", "weight": 0.8, "hint": "3–5 年内不会过时" }
+    ],
+    "example": [
+      { "name": "职场数据分析", "scores": { "passion": 4, "skill": 5, "demand": 4, "money": 4, "room": 3, "durable": 4 } },
+      { "name": "AI 办公效率", "scores": { "passion": 4, "skill": 3, "demand": 5, "money": 4, "room": 2, "durable": 3 } },
+      { "name": "城市徒步", "scores": { "passion": 5, "skill": 3, "demand": 3, "money": 2, "room": 3, "durable": 4 } }
+    ]
+  },
+
+  "platformQuiz": {
+    "regions": [
+      { "id": "cn", "name": "主要在国内" },
+      { "id": "global", "name": "主要在海外" },
+      { "id": "both", "name": "两者都要" }
+    ],
+    "formats": [
+      { "id": "text", "name": "长文写作" },
+      { "id": "post", "name": "短帖" },
+      { "id": "image", "name": "图文" },
+      { "id": "short", "name": "短视频" },
+      { "id": "long", "name": "长视频" },
+      { "id": "audio", "name": "音频 / 播客" },
+      { "id": "code", "name": "代码 / 作品" },
+      { "id": "live", "name": "直播" },
+      { "id": "newsletter", "name": "邮件通讯" }
+    ],
+    "audiences": [
+      { "id": "pro", "name": "职场专业人士" },
+      { "id": "b2b", "name": "企业决策者" },
+      { "id": "dev", "name": "开发者 / 技术人" },
+      { "id": "consumer", "name": "大众消费者" },
+      { "id": "youth", "name": "年轻人 / 学生" },
+      { "id": "creator", "name": "创作者 / 互联网从业者" }
+    ],
+    "goals": [
+      { "id": "career", "name": "求职 / 晋升" },
+      { "id": "clients", "name": "获客 / 接单" },
+      { "id": "monetize", "name": "内容变现" },
+      { "id": "influence", "name": "行业影响力" },
+      { "id": "community", "name": "建立社群" }
+    ],
+    "times": [
+      { "id": "low", "name": "每周 3 小时以内" },
+      { "id": "mid", "name": "每周 3–8 小时" },
+      { "id": "high", "name": "每周 8 小时以上" }
+    ],
+    "faces": [
+      { "id": "yes", "name": "愿意出镜" },
+      { "id": "no", "name": "不想出镜" }
+    ],
+    "example": { "region": "cn", "formats": ["text", "image"], "audiences": ["pro"], "goals": ["career", "influence"], "time": "mid", "face": "no" }
+  },
+
+  "platforms": [
+    { "id": "wechat_mp", "name": "微信公众号", "region": "cn", "formats": ["text", "newsletter"], "audiences": ["pro", "b2b", "consumer"], "goals": ["influence", "clients", "monetize", "community"], "effort": 3, "lifespan": "长", "face": false, "strengths": "长文深度表达，微信生态内社交传播，兼有搜一搜与推荐流量", "watch": "冷启动依赖社交关系，打开率需要持续经营", "monetize": "流量主、赞赏、付费文章、互选广告、导流私域" },
+    { "id": "channels", "name": "视频号", "region": "cn", "formats": ["short", "live"], "audiences": ["consumer", "pro", "b2b"], "goals": ["clients", "monetize", "influence"], "effort": 3, "lifespan": "中", "face": true, "strengths": "与微信好友、公众号、社群打通，社交推荐叠加算法推荐，直播转化强", "watch": "内容要兼顾熟人社交场景", "monetize": "直播带货、橱窗、付费直播、私域转化" },
+    { "id": "xiaohongshu", "name": "小红书", "region": "cn", "formats": ["image", "short"], "audiences": ["consumer", "youth", "pro"], "goals": ["clients", "monetize", "influence"], "effort": 3, "lifespan": "长", "face": false, "strengths": "搜索与推荐双引擎，图文门槛低，适合生活方式、职场、教育和消费决策类内容", "watch": "对站外导流有限制，需遵守社区规范", "monetize": "品牌合作（蒲公英平台）、店铺与买手、直播" },
+    { "id": "douyin", "name": "抖音", "region": "cn", "formats": ["short", "live"], "audiences": ["consumer", "youth"], "goals": ["monetize", "influence", "clients"], "effort": 4, "lifespan": "短", "face": true, "strengths": "流量池大、算法推荐强，适合快速测试内容与起量", "watch": "竞争激烈、内容寿命短、制作成本高", "monetize": "巨量星图商单、直播带货、橱窗、付费内容" },
+    { "id": "bilibili", "name": "哔哩哔哩（B站）", "region": "cn", "formats": ["long", "short", "live"], "audiences": ["youth", "dev", "creator"], "goals": ["influence", "monetize", "community"], "effort": 4, "lifespan": "长", "face": false, "strengths": "中长视频深度表达，知识区与科技区氛围好，社区黏性强", "watch": "制作周期长，起量较慢", "monetize": "花火商单、充电、课堂、创作激励" },
+    { "id": "zhihu", "name": "知乎", "region": "cn", "formats": ["text", "post"], "audiences": ["pro", "dev", "youth"], "goals": ["influence", "clients", "career"], "effort": 2, "lifespan": "长", "face": false, "strengths": "问答带来长尾搜索流量，内容常被搜索引擎和 AI 引用，适合建立专业形象", "watch": "社区讨论风格偏理性、尖锐", "monetize": "知+、付费咨询、好物推荐、盐选专栏" },
+    { "id": "weibo", "name": "微博", "region": "cn", "formats": ["post", "image", "short"], "audiences": ["consumer", "creator"], "goals": ["influence"], "effort": 2, "lifespan": "短", "face": false, "strengths": "公共话题广场，适合参与热点、与媒体和名人互动", "watch": "信息流速度快，舆论风险较高", "monetize": "广告合作、电商" },
+    { "id": "jike", "name": "即刻", "region": "cn", "formats": ["post"], "audiences": ["creator", "dev", "pro"], "goals": ["influence", "community", "career"], "effort": 1, "lifespan": "短", "face": false, "strengths": "互联网、AI、创业人群聚集，适合早期建立行业连接", "watch": "用户规模相对较小", "monetize": "以连接与机会为主" },
+    { "id": "xiaoyuzhou", "name": "播客（小宇宙等）", "region": "cn", "formats": ["audio"], "audiences": ["pro", "creator", "youth"], "goals": ["influence", "community"], "effort": 3, "lifespan": "长", "face": false, "strengths": "深度长谈、信任度高，适合思想领导力", "watch": "增长慢，需要跨平台导流", "monetize": "品牌合作、付费节目、听众社群" },
+    { "id": "zsxq", "name": "知识星球 / 私域社群", "region": "cn", "formats": ["post", "text", "newsletter"], "audiences": ["pro", "creator"], "goals": ["monetize", "community"], "effort": 3, "lifespan": "长", "face": false, "strengths": "付费社群与深度交流，用户关系强", "watch": "需要从公域导流，运营投入大", "monetize": "付费会员、训练营" },
+    { "id": "juejin", "name": "掘金 / CSDN 等技术社区", "region": "cn", "formats": ["text", "code"], "audiences": ["dev"], "goals": ["career", "influence"], "effort": 2, "lifespan": "长", "face": false, "strengths": "技术人群集中，技术文章有长期搜索价值", "watch": "内容同质化严重，需要深度与原创", "monetize": "以职业机会、技术合作为主" },
+    { "id": "maimai", "name": "脉脉", "region": "cn", "formats": ["post"], "audiences": ["pro"], "goals": ["career"], "effort": 1, "lifespan": "短", "face": false, "strengths": "职场人群集中，适合展示职业身份与行业交流", "watch": "匿名区讨论容易情绪化", "monetize": "以职业机会为主" },
+    { "id": "linkedin", "name": "LinkedIn", "region": "global", "formats": ["post", "text", "newsletter"], "audiences": ["pro", "b2b"], "goals": ["career", "clients", "influence"], "effort": 2, "lifespan": "中", "face": false, "strengths": "全球职场与 B2B 的主阵地，求职与获客效率高，自带 Newsletter 功能", "watch": "内容需要专业，过度营销容易引起反感", "monetize": "职业机会、咨询获客、演讲邀约" },
+    { "id": "x", "name": "X（Twitter）", "region": "global", "formats": ["post"], "audiences": ["dev", "creator", "pro"], "goals": ["influence", "career", "community"], "effort": 2, "lifespan": "短", "face": false, "strengths": "科技、AI、创投圈的实时对话场，适合连接行业意见领袖", "watch": "内容寿命短，需要较高频率", "monetize": "订阅、创作者分成、导流" },
+    { "id": "youtube", "name": "YouTube", "region": "global", "formats": ["long", "short", "live"], "audiences": ["consumer", "dev", "pro", "youth"], "goals": ["monetize", "influence"], "effort": 4, "lifespan": "长", "face": false, "strengths": "视频搜索属性强，长尾流量持久，广告分成机制成熟", "watch": "制作成本高，起量慢", "monetize": "广告分成、频道会员、赞助、导流" },
+    { "id": "instagram", "name": "Instagram", "region": "global", "formats": ["image", "short"], "audiences": ["consumer", "youth", "creator"], "goals": ["monetize", "influence"], "effort": 3, "lifespan": "短", "face": true, "strengths": "视觉与生活方式表达，Reels 有推荐流量", "watch": "外链能力有限", "monetize": "品牌合作、电商、订阅" },
+    { "id": "tiktok", "name": "TikTok", "region": "global", "formats": ["short", "live"], "audiences": ["consumer", "youth"], "goals": ["monetize", "influence"], "effort": 4, "lifespan": "短", "face": true, "strengths": "算法推荐强，新账号也有爆发机会", "watch": "部分地区存在监管不确定性，内容寿命短", "monetize": "创作者激励、直播、电商、品牌合作" },
+    { "id": "newsletter", "name": "Newsletter（Substack 等）", "region": "global", "formats": ["newsletter", "text"], "audiences": ["pro", "b2b", "creator"], "goals": ["monetize", "community", "influence"], "effort": 3, "lifespan": "长", "face": false, "strengths": "邮件订阅就是自有受众，可以直接触达，支持付费订阅", "watch": "需要从其他平台导流", "monetize": "付费订阅、赞助、产品销售" },
+    { "id": "podcast", "name": "播客（Apple / Spotify 等）", "region": "global", "formats": ["audio"], "audiences": ["pro", "creator", "b2b"], "goals": ["influence", "community"], "effort": 3, "lifespan": "长", "face": false, "strengths": "深度对话、高信任，适合思想领导力与嘉宾互访", "watch": "增长慢，发现机制较弱", "monetize": "赞助、付费节目、导流" },
+    { "id": "reddit", "name": "Reddit", "region": "global", "formats": ["post", "text"], "audiences": ["dev", "consumer", "creator"], "goals": ["community", "influence"], "effort": 2, "lifespan": "中", "face": false, "strengths": "垂直社区讨论深入，内容常被搜索引擎与 AI 引用", "watch": "社区反感营销，需要真诚参与", "monetize": "以影响力与导流为主" },
+    { "id": "github", "name": "GitHub", "region": "any", "formats": ["code", "text"], "audiences": ["dev"], "goals": ["career", "influence", "community"], "effort": 3, "lifespan": "长", "face": false, "strengths": "开发者的作品集，开源项目是最强的技术信任状", "watch": "维护开源项目需要长期投入", "monetize": "赞助、咨询、职业机会" },
+    { "id": "website", "name": "个人网站 / 博客", "region": "any", "formats": ["text", "newsletter", "code"], "audiences": ["pro", "b2b", "dev", "consumer"], "goals": ["career", "clients", "monetize", "influence"], "effort": 2, "lifespan": "长", "face": false, "strengths": "完全自有、可被搜索，承载作品集、订阅与合作入口", "watch": "需要从其他渠道导流", "monetize": "所有变现方式的落地页" }
+  ],
+
+  "calendar": {
+    "example": {
+      "pillars": [
+        { "name": "数据分析方法", "ratio": 50 },
+        { "name": "行业洞察", "ratio": 25 },
+        { "name": "转行故事", "ratio": 15 },
+        { "name": "生活观察", "ratio": 10 }
+      ],
+      "channels": [
+        { "name": "小红书", "perWeek": 3, "format": "图文" },
+        { "name": "公众号", "perWeek": 1, "format": "长文" }
+      ],
+      "topics": [
+        { "title": "5 个让周报更有说服力的图表", "pillar": "数据分析方法", "impact": 4, "confidence": 4, "ease": 5 },
+        { "title": "我从运营转行数据分析的第一年", "pillar": "转行故事", "impact": 5, "confidence": 4, "ease": 4 },
+        { "title": "AI 会取代初级数据分析师吗？", "pillar": "行业洞察", "impact": 5, "confidence": 3, "ease": 3 },
+        { "title": "一张表看懂留存率的三种算法", "pillar": "数据分析方法", "impact": 4, "confidence": 5, "ease": 4 },
+        { "title": "SQL 窗口函数的 3 个业务场景", "pillar": "数据分析方法", "impact": 3, "confidence": 5, "ease": 4 },
+        { "title": "跑步 1000 公里教会我的复盘方法", "pillar": "生活观察", "impact": 3, "confidence": 4, "ease": 4 }
+      ]
+    },
+    "formats": ["图文", "长文", "短帖", "短视频", "长视频", "播客", "直播", "Newsletter"]
+  },
+
+  "roadmap": {
+    "phases": [
+      {
+        "id": "p1", "name": "奠基", "weeks": [1, 2], "stage": "build",
+        "tasks": [
+          { "id": "p1a", "text": "完成经验资产盘点，收集至少 5 份他人反馈", "link": "build.discover" },
+          { "id": "p1b", "text": "用定位画布写出一句话定位", "link": "tools.canvas" },
+          { "id": "p1c", "text": "画出一个具体的目标受众画像", "link": "build.position" },
+          { "id": "p1d", "text": "统一所有平台的名字、头像与简介", "link": "build.identity" },
+          { "id": "p1e", "text": "用平台选择器确定主阵地", "link": "tools.platform" },
+          { "id": "p1f", "text": "建立素材库与选题池", "link": "tools.calendar" }
+        ]
+      },
+      {
+        "id": "p2", "name": "启动", "weeks": [3, 4], "stage": "build",
+        "tasks": [
+          { "id": "p2a", "text": "发布自我介绍或宣言帖", "link": "build.launch" },
+          { "id": "p2b", "text": "发布前 5 篇内容", "link": "build.content" },
+          { "id": "p2c", "text": "每天 15–30 分钟参与目标社区互动", "link": "maintain.community" },
+          { "id": "p2d", "text": "搭建自有阵地入口（订阅或社群）", "link": "build.platform" },
+          { "id": "p2e", "text": "告诉身边 20 个人你在做什么", "link": "build.launch" }
+        ]
+      },
+      {
+        "id": "p3", "name": "验证", "weeks": [5, 8], "stage": "maintain",
+        "tasks": [
+          { "id": "p3a", "text": "保持稳定的发布节奏", "link": "maintain.consistency" },
+          { "id": "p3b", "text": "测试 3 种以上内容形式或选题方向", "link": "build.content" },
+          { "id": "p3c", "text": "完成第一次月度数据复盘", "link": "tools.metrics" },
+          { "id": "p3d", "text": "与 3–5 位同行建立联系或合作", "link": "maintain.community" },
+          { "id": "p3e", "text": "收集第一批受众问题，建立问题库", "link": "build.content" }
+        ]
+      },
+      {
+        "id": "p4", "name": "放大", "weeks": [9, 12], "stage": "leverage",
+        "tasks": [
+          { "id": "p4a", "text": "完成 1 个旗舰内容", "link": "build.launch" },
+          { "id": "p4b", "text": "把内容改编分发到第二个平台", "link": "build.platform" },
+          { "id": "p4c", "text": "尝试一次小规模转化（咨询、活动或预售）", "link": "leverage.monetize" },
+          { "id": "p4d", "text": "写一篇 90 天复盘", "link": "maintain.measure" },
+          { "id": "p4e", "text": "重新做一次品牌体检并对比", "link": "tools.audit" }
+        ]
+      }
+    ]
+  },
+
+  "metrics": {
+    "fields": [
+      { "id": "followers", "name": "关注者总数", "unit": "", "up": true },
+      { "id": "subscribers", "name": "自有阵地订阅", "unit": "", "up": true },
+      { "id": "posts", "name": "当月发布数", "unit": "", "up": true },
+      { "id": "engagement", "name": "平均互动率", "unit": "%", "up": true },
+      { "id": "opportunities", "name": "主动找来的机会", "unit": "", "up": true },
+      { "id": "revenue", "name": "品牌相关收入", "unit": "元", "up": true }
+    ],
+    "example": [
+      { "month": "2026-04", "followers": 320, "subscribers": 40, "posts": 8, "engagement": 4.2, "opportunities": 0, "revenue": 0 },
+      { "month": "2026-05", "followers": 510, "subscribers": 72, "posts": 10, "engagement": 4.8, "opportunities": 1, "revenue": 0 },
+      { "month": "2026-06", "followers": 780, "subscribers": 115, "posts": 9, "engagement": 5.1, "opportunities": 2, "revenue": 800 },
+      { "month": "2026-07", "followers": 1150, "subscribers": 168, "posts": 12, "engagement": 5.6, "opportunities": 3, "revenue": 1500 },
+      { "month": "2026-08", "followers": 1620, "subscribers": 240, "posts": 12, "engagement": 5.3, "opportunities": 5, "revenue": 3200 },
+      { "month": "2026-09", "followers": 2210, "subscribers": 330, "posts": 13, "engagement": 5.9, "opportunities": 6, "revenue": 4800 }
+    ]
+  },
+
+  "money": {
+    "fans": 1000,
+    "spend": 500,
+    "reach": 20000,
+    "tiers": [
+      { "name": "关注 / 订阅", "price": 0, "rate": 3 },
+      { "name": "引流品", "price": 49, "rate": 5 },
+      { "name": "核心产品", "price": 999, "rate": 10 },
+      { "name": "高端服务", "price": 8000, "rate": 5 }
+    ]
+  },
+
+  "crisis": {
+    "start": "q1",
+    "nodes": {
+      "q1": { "q": "负面信息的内容是否基本属实？", "options": [ { "label": "属实，或部分属实", "next": "q2" }, { "label": "不属实（误解或谣言）", "next": "q4" }, { "label": "还不确定", "next": "verify" } ] },
+      "q2": { "q": "影响范围和严重程度如何？", "options": [ { "label": "小范围的轻微失误", "next": "minor" }, { "label": "广泛传播，或涉及他人权益", "next": "q3" } ] },
+      "q3": { "q": "是否涉及违法、人身安全或重大伦理问题？", "options": [ { "label": "是", "next": "major" }, { "label": "否", "next": "apology" } ] },
+      "q4": { "q": "更接近哪种情况？", "options": [ { "label": "善意的误解，或信息不全", "next": "clarify" }, { "label": "恶意造谣或人身攻击", "next": "rumor" } ] }
+    },
+    "outcomes": {
+      "verify": { "title": "先核实，再回应", "tone": "note", "steps": ["暂停所有排期内容", "收集事实：时间线、原始材料、相关人员", "发布简短的初步回应：已关注到，正在核实，会尽快说明", "给自己设定截止时间（如 24 小时内）发布正式回应"], "template": "我已注意到关于【事件】的讨论，正在认真核实相关情况，将于【时间】前公开说明。感谢大家的关注与耐心。" },
+      "minor": { "title": "简短认错，立即修正", "tone": "tip", "steps": ["承认错误，不找借口", "公开更正内容（附更正说明，不要悄悄删除）", "感谢指出问题的人", "记录到复盘里，避免再犯"], "template": "感谢指正！这里我写错了：【错误内容】，正确的是【正确信息】。已在原文更正，抱歉给大家带来困扰。" },
+      "apology": { "title": "正式道歉四步", "tone": "warn", "steps": ["承认：具体说明哪里做错了", "承担：不推卸责任，不说“如果冒犯到了”", "改正：说明已经采取和将要采取的措施", "跟进：在承诺的时间内公开进展"], "template": "关于【事件】，我想郑重道歉。我在【具体行为】上犯了错，给【受影响的人】造成了【影响】，这完全是我的责任。我已经【已采取的措施】，接下来会【后续措施】，并在【时间】前向大家同步进展。" },
+      "major": { "title": "立即寻求专业支持", "tone": "warn", "steps": ["暂停公开发言，避免二次伤害", "咨询律师及相关专业人士", "优先处理对受影响者的补救", "在专业建议下发布正式声明", "配合相关部门与平台的处理"], "template": "", "note": "这类情况请不要自行起草声明，应在专业人士的指导下处理。" },
+      "clarify": { "title": "平和澄清", "tone": "tip", "steps": ["一次性、清晰地给出事实和证据", "语气平和，不指责提问的人", "必要时置顶澄清内容", "澄清之后不再反复争辩"], "template": "看到一些关于【事情】的讨论，这里统一说明一下：【事实】。相关的【证据或链接】在这里。如果还有疑问，欢迎私信我。" },
+      "rumor": { "title": "留证、举报、不纠缠", "tone": "note", "steps": ["截图并保存证据（包括链接与时间）", "通过平台的举报与投诉渠道处理", "如果造成实际损害，咨询律师，依法维权", "不和造谣者对骂，必要时发布一次简短声明", "照顾好自己的情绪，必要时暂停查看评论"], "template": "近期网络上出现了关于我的不实信息：【谣言内容】。该信息与事实不符，我已保存证据并向平台举报，必要时将依法维权。感谢大家的信任与支持。" }
+    }
+  },
+
+  "ai": {
+    "canvasReview": "你是一位资深的个人品牌战略顾问，熟悉中文互联网与职场语境。请评估下面这份个人品牌定位画布，语言为简体中文，评价要具体、直接、可执行，不要空泛的鼓励。\n\n定位画布：\n{canvas}\n\n只输出一个 JSON 对象，字段如下：score（0–100 的整数，表示定位的清晰度与独特性）、verdict（一句话总评，30 字以内）、strengths（字符串数组，2–3 条优点）、issues（字符串数组，2–4 条具体问题）、statements（字符串数组，3 条改进后的一句话定位，每条 40 字以内）、bio（一句话简介，40 字以内）、next（字符串数组，3 条下一步行动）。",
+    "topics": "你是一位擅长中文内容策划的编辑。请根据下面的个人品牌信息，为下个月生成 10 个具体的内容选题。选题要贴合定位与受众，避免空泛的标题，适当使用数字、具体场景或反常识角度。\n\n品牌信息：\n{profile}\n\n内容支柱：{pillars}\n主要平台与形式：{channels}\n已有选题（避免重复）：{existing}\n\n只输出一个 JSON 数组，每个元素包含：title（选题标题，30 字以内）、pillar（必须是上面列出的某个内容支柱名称）、format（内容形式）、hook（开头第一句话，40 字以内）。",
+    "auditPlan": "你是一位个人品牌教练。下面是用户的品牌体检结果（每个维度满分 5 分）以及他的品牌档案。请给出一份为期 30 天、按周拆分的改进计划，优先补齐得分最低的维度。\n\n体检结果：\n{scores}\n\n品牌档案：\n{profile}\n\n要求：简体中文，Markdown 格式；先用 2–3 句话诊断，再按“第 1 周”到“第 4 周”列出每周 3 个具体行动（写清做什么、做到什么程度），最后给出 3 个用来衡量进展的指标。总长度控制在 600 字以内。",
+    "crisisDraft": "你是一位危机公关顾问。用户遇到了一次公开的负面事件，情况描述和已选择的处理路径如下。请帮他起草一份对外回应，同时指出需要注意的风险。\n\n处理路径：{path}\n情况描述：{situation}\n\n要求：简体中文；先给出回应正文（150–250 字，真诚、具体、不推卸、不攻击他人、不做无法兑现的承诺），再用 3 条以内的要点列出发布前要确认的事项。如果情况涉及违法、人身安全或严重伤害，请明确建议先咨询律师等专业人士，不要直接发布。不要编造用户没有提供的事实，用【】标出需要用户补充的信息。",
+    "advisor": "你是一位务实的个人品牌顾问，帮助用户建立、维护和利用个人品牌。请用简体中文回答，先给结论，再给具体可执行的步骤，避免空话；不确定的地方直接说明。涉及法律、税务或投资的问题，只提供一般性信息并建议咨询专业人士。不要编造数据、案例或引用来源。\n\n以下是用户的品牌档案（可能不完整）：\n{profile}",
+    "suggestions": ["帮我评估一下现在的定位", "给我 5 个本周就能写的选题", "我适合哪些变现方式？", "不想露脸，怎样建立信任？"]
+  }
+}

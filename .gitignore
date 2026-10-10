@@ -1,0 +1,8 @@
+# 构建产物可以提交（便于直接托管），如不需要可取消下一行注释
+# dist/
+__pycache__/
+*.pyc
+.DS_Store
+
+# 读者从页面导出的个人备份，避免误提交
+personal-brand-backup-*.json
